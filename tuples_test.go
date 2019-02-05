@@ -14,10 +14,16 @@ func TestTup(t *testing.T) {
 	expectedV := tuple(4, -4, 3, 0)
 
 	if p != expectedP {
-		t.Fatalf("Point Doesn't create correct tup got %+v want %+v", p, expectedP)
+		t.Error(
+			"Expected", expectedP,
+			"got", p,
+		)
 	}
 	if v != expectedV {
-		t.Fatalf("Vector Doesn't create expected tup got %+v want %+v", v, expectedV)
+		t.Error(
+			"Expected", expectedV,
+			"Got", v,
+		)
 	}
 }
 
@@ -27,7 +33,10 @@ func TestAddTuple(t *testing.T) {
 	got := addTuple(t1, t2)
 	want := tuple(1, 1, 6, 1)
 	if got != want {
-		t.Fatalf("got %+v, want %+v", got, want)
+		t.Error(
+			"Expected", want,
+			"Got", want,
+		)
 	}
 }
 
@@ -62,7 +71,10 @@ func TestNegation(t *testing.T) {
 	want := tuple(-1, 2, -3, 4)
 	got := negateTuple(tup1)
 	if got != want {
-		t.Fatalf("got %+v, want %+v", got, want)
+		t.Error(
+			"Expected", want,
+			"Got", got,
+		)
 	}
 }
 
@@ -71,7 +83,10 @@ func TestMult(t *testing.T) {
 	want := tuple(3.5, -7, 10.5, -14)
 	got := mult(tup1, 3.5)
 	if got != want {
-		t.Fatalf("got %+v, want %+v", got, want)
+		t.Error(
+			"Expected", want,
+			"Got", got,
+		)
 	}
 }
 
@@ -103,7 +118,7 @@ func TestMagnitude(t *testing.T) {
 	}
 
 	for _, pair := range tests {
-		v := magnitude(pair.vector)
+		v := pair.vector.magnitude()
 		if v != pair.mag {
 			t.Error(
 				"For", pair.vector,
@@ -126,8 +141,8 @@ func TestNormalization(t *testing.T) {
 	}
 
 	for _, pair := range tests {
-		v := normalize(pair.vector)
-		if !equalTup(v, pair.normal) {
+		v := pair.vector.normalize()
+		if !v.equal(pair.normal) {
 			t.Error(
 				"For", pair.vector,
 				"expected", pair.normal,
@@ -141,7 +156,7 @@ func TestDot(t *testing.T) {
 	v1 := vector(1, 2, 3)
 	v2 := vector(2, 3, 4)
 	want := 20.0
-	got := dot(v1, v2)
+	got := v1.dot(v2)
 	if got != want {
 		t.Error(
 			"For", v1, v2,
@@ -155,9 +170,9 @@ func TestCross(t *testing.T) {
 	v1 := vector(1, 2, 3)
 	v2 := vector(2, 3, 4)
 	wantV1V2 := vector(-1, 2, -1)
-	gotV1V2 := cross(v1, v2)
+	gotV1V2 := v1.cross(v2)
 	wantV2V1 := vector(1, -2, 1)
-	gotV2V1 := cross(v2, v1)
+	gotV2V1 := v2.cross(v1)
 
 	if wantV1V2 != gotV1V2 {
 		t.Error(
