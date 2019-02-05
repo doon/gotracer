@@ -12,10 +12,7 @@ func equal(f1 float64, f2 float64) bool {
 
 //Tup The main tuple represeting a point/vector/color
 type tup struct {
-	x float64
-	y float64
-	z float64
-	w float64
+	x, y, z, w float64
 }
 
 func (t tup) equal(t2 tup) bool {
