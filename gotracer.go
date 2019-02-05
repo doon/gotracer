@@ -6,7 +6,7 @@ import (
 
 const epsilon float64 = 0.00001
 
-func equal(f1 float64, f2 float64) bool {
+func equals(f1 float64, f2 float64) bool {
 	return math.Abs(f1-f2) < epsilon
 }
 
@@ -15,11 +15,11 @@ type tup struct {
 	x, y, z, w float64
 }
 
-func (t tup) equal(t2 tup) bool {
-	return equal(t.x, t2.x) &&
-		equal(t.y, t2.y) &&
-		equal(t.z, t2.z) &&
-		equal(t.w, t2.w)
+func (t tup) equals(t2 tup) bool {
+	return equals(t.x, t2.x) &&
+		equals(t.y, t2.y) &&
+		equals(t.z, t2.z) &&
+		equals(t.w, t2.w)
 }
 
 func tuple(x float64, y float64, z float64, w float64) tup {
@@ -95,5 +95,51 @@ func (t tup) cross(t2 tup) tup {
 		t.y*t2.z-t.z*t2.y,
 		t.z*t2.x-t.x*t2.z,
 		t.x*t2.y-t.y*t2.x,
+	)
+}
+
+type rgb struct {
+	R, G, B float64
+}
+
+func color(red float64, green float64, blue float64) rgb {
+	return rgb{red, green, blue}
+}
+
+func (c rgb) add(c2 rgb) rgb {
+	return color(
+		c.R+c2.R,
+		c.G+c2.G,
+		c.B+c2.B,
+	)
+}
+
+func (c rgb) sub(c2 rgb) rgb {
+	return color(
+		c.R-c2.R,
+		c.G-c2.G,
+		c.B-c2.B,
+	)
+}
+
+func (c rgb) scale(f float64) rgb {
+	return color(
+		c.R*f,
+		c.G*f,
+		c.B*f,
+	)
+}
+
+func (c rgb) equals(c2 rgb) bool {
+	return equals(c.R, c2.R) &&
+		equals(c.G, c2.G) &&
+		equals(c.B, c2.B)
+}
+
+func (c rgb) mult(c2 rgb) rgb {
+	return color(
+		c.R*c2.R,
+		c.G*c2.G,
+		c.B*c2.B,
 	)
 }

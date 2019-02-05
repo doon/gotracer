@@ -142,7 +142,7 @@ func TestNormalization(t *testing.T) {
 
 	for _, pair := range tests {
 		v := pair.vector.normalize()
-		if !v.equal(pair.normal) {
+		if !v.equals(pair.normal) {
 			t.Error(
 				"For", pair.vector,
 				"expected", pair.normal,
