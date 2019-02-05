@@ -14,10 +14,10 @@ func TestTup(t *testing.T) {
 	expectedV := tuple(4, -4, 3, 0)
 
 	if p != expectedP {
-		t.Fatalf("Point Doesn't create correct tup got %v want %v", p, expectedP)
+		t.Fatalf("Point Doesn't create correct tup got %+v want %+v", p, expectedP)
 	}
 	if v != expectedV {
-		t.Fatalf("Vector Doesn't create expected tup got %v want %v", v, expectedV)
+		t.Fatalf("Vector Doesn't create expected tup got %+v want %+v", v, expectedV)
 	}
 }
 
