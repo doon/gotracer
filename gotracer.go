@@ -143,3 +143,29 @@ func (c rgb) mult(c2 rgb) rgb {
 		c.B*c2.B,
 	)
 }
+
+type Canvas [][]rgb
+
+func canvas(XSize int, YSize int, defaultColor rgb) Canvas {
+	// Allocate the top-level slice
+	c := make([][]rgb, YSize) // One row per unit of y.
+	// Allocate one large slice to hold all the pixels.
+	pixels := make([]rgb, XSize*YSize)
+	//loop over all pixels and set to default color
+	for i := range pixels {
+		pixels[i] = defaultColor
+	}
+	// Loop over the rows, slicing each row from the front of the remaining pixels slice.
+	for i := range c {
+		c[i], pixels = pixels[:XSize], pixels[XSize:]
+	}
+	return c
+}
+
+func (c Canvas) write(x int, y int, color rgb) {
+	c[y][x] = color
+}
+
+func (c Canvas) at(x int, y int) rgb {
+	return c[y][x]
+}

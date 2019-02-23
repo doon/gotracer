@@ -63,3 +63,36 @@ func TestMultiplyColors(t *testing.T) {
 		)
 	}
 }
+
+func TestCreateCanvas(t *testing.T) {
+	black := color(0, 0, 0)
+	c := canvas(10, 20, black)
+
+	if len(c) != 20 {
+		t.Error("Expected y == 20 got", len(c))
+	}
+	if len(c[0]) != 10 {
+		t.Error("Expected X == 10 got", len(c[0]))
+	}
+
+	for y := range c {
+		for x := range c[y] {
+			if !c[y][x].equals(black) {
+				t.Error("Expected", x, ",", y, "to be black, got", c[y][x])
+			}
+		}
+	}
+}
+
+func TestWritePixelToCanvas(t *testing.T) {
+	black := color(0, 0, 0)
+	red := color(1, 0, 0)
+	c := canvas(10, 20, black)
+	c.write(2, 3, red)
+	if !c.at(2, 3).equals(red) {
+		t.Error("expected pixel at 2,3 to be", red, "got", c.at(2, 3))
+	}
+	if !c.at(1, 3).equals(black) {
+		t.Error("expected pixel at 1,3 to be", black, "got", c.at(1, 3))
+	}
+}
